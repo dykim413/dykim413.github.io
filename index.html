@@ -4,9 +4,471 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<title>Document</title>
+	<title>Golf pay Notification Generator</title>
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;500;700&display=swap" rel="stylesheet">
+	<style>
+		:root {
+			--bg-color: #1C1C1B;
+			--font-color: #CE4A7E;
+		}
+        * {
+            margin: 0;
+            padding: 0;
+            outline: none;
+	        text-decoration: none;
+        }
+        body {
+            background: var(--bg-color);
+            font-family: 'Noto Sans KR', sans-serif;
+            color: var(--font-color);
+        }
+        .container {
+            width: 1000px;
+            margin: 100px auto;
+        }
+        main {
+	        position: relative;
+            height: 1180px;
+            box-shadow: 0 0 10px rgba(255,255,255,.5);
+        }
+        main h1 {
+	        position: relative;
+            background: var(--font-color);
+            color: var(--bg-color);
+            font-size: 1.6rem;
+            padding: 20px 60px;
+            border-bottom: 1px solid rgba(0,0,0,.2);
+        }
+        main h1::before {
+	        content: "";
+	        position: absolute;
+	        left: 20px;
+	        top: 15px;
+	        width: 30px;
+	        height: 50px;
+	        background: url("images/golf2.png") no-repeat left center / 30px 50px;
+	        filter: invert(1);
+        }
+        main section {
+            padding: 15px 20px;
+        }
+        main section h2 {
+            font-size: 1.4rem;
+            padding: 10px 0;
+        }
+        .wrapper {
+            padding: 10px 0;
+        }
+
+        .wrapper .row {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            margin: 0 0 5px;
+        }
+        .wrapper .row.chk {
+            display: block;
+        }
+        .wrapper .row.chk p {
+            display: inline-block;
+        }
+        .wrapper .row p {
+            width: 130px;
+        }
+        .wrapper .row p.through {
+            text-decoration: line-through;
+        }
+        .wrapper .row select, .wrapper .row input {
+            flex: 1;
+            padding:5px;
+        }
+        .wrapper .row [id*=custom] {
+            display: none;
+        }
+        .btn-area {
+            text-align: center;
+        }
+        .btn {
+            padding: 10px 20px;
+            background: var(--font-color);
+            color: var(--bg-color);
+            border-radius: 20px;
+            box-shadow: 5px 5px 10px rgba(0,0,0,.8);
+	        cursor: pointer;
+        }
+        #requirement-container {
+            padding: 10px 20px;
+        }
+        #requirement-container p::before {
+            content: "! ";
+            color: red;
+        }
+        .btn-subscribe-wrapper {
+	        position: absolute;
+	        top: -70px;
+	        right: 0;
+	        z-index: 1;
+        }
+        .btn-subscribe {
+	        position: relative;
+	        display: inline-block;
+	        padding: 15px 30px;
+	        border: 2px solid #0f0;
+	        text-transform: uppercase;
+	        font-weight: 600;
+	        color: #fff;
+	        filter: hue-rotate(80deg);
+        }
+        .btn-subscribe:hover {
+	        color: #000;
+        }
+        .btn-subscribe span {
+            position: relative;
+            z-index: 100;
+        }
+        .btn-subscribe::before {
+	        content: "";
+	        position: absolute;
+	        left: -20px;
+	        top: 50%;
+	        transform: translateY(-50%);
+	        width: 20px;
+	        height: 2px;
+	        background: #0f0;
+	        box-shadow: 5px -8px 0 #0f0,
+                        5px 8px 0 #0f0;
+	        transition: width 0.3s, left 0.3s, height 0.3s, box-shadow 0.3s;
+	        transition-delay: .3s, 0.1s, 0s, 0s;
+        }
+        .btn-subscribe:hover::before {
+	        width: 60%;
+	        height: 100%;
+	        left: -2px;
+            box-shadow: 5px 0 0 #0f0,
+                        5px 0 0 #0f0;
+            transition-delay: 0s, 0s, .5s, .5s;
+        }
+        .btn-subscribe::after {
+            content: "";
+            position: absolute;
+            right: -20px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 2px;
+            background: #0f0;
+            box-shadow: -5px -8px 0 #0f0,
+                        -5px 8px 0 #0f0;
+            transition: width 0.3s, left 0.3s, height 0.3s, box-shadow 0.5s;
+            transition-delay: .3s, .1s, 0s, 0s;
+        }
+        .btn-subscribe:hover::after {
+            width: 60%;
+            height: 100%;
+            right: -2px;
+            box-shadow: -5px 0 0 #0f0,
+                        -5px 0 0 #0f0;
+            transition-delay: 0s, 0s, .5s, .5s;
+        }
+        .btn-subscribe-wrapper .btn-subscribe.granted {
+            filter: hue-rotate(0);
+        }
+        .btn2 {
+            position: relative;
+            display: inline-block;
+            padding: 10px 15px;
+            color: #03e9f4;
+            font-size: 24px;
+            text-decoration: none;
+            text-transform: uppercase;
+            transition: .5s;
+            letter-spacing: 4px;
+            overflow: hidden;
+            -webkit-box-reflect: below 1px linear-gradient(transparent, #0005);
+        }
+        .btn2:nth-child(1) {
+	        filter: hue-rotate(110deg);
+	        margin : 0 20px 0;
+        }
+        .btn2:hover {
+            background: #03e9f4;
+            color: #050801;
+            box-shadow: 0 0 5px #03e9f4,
+            0 0 25px #03e9f4,
+            0 0 50px #03e9f4,
+            0 0 200px #03e9f4;
+        }
+        .btn2 span {
+            position: absolute;
+            display: block;
+        }
+        .btn2 span:nth-child(1) {
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #03e9f4);;
+            animation: animate1 1s linear infinite;
+        }
+        @keyframes animate1 {
+            0% {
+                left: -100%;
+            }
+            50%, 100% {
+                left: 100%;
+            }
+        }
+
+        .btn2 span:nth-child(2) {
+            top: -100%;
+            right: 0;
+            width: 2px;
+            height: 100%;
+            background: linear-gradient(180deg, transparent, #03e9f4);;
+            animation: animate2 1s linear infinite;
+            animation-delay: .25s;
+        }
+        @keyframes animate2 {
+            0% {
+                top: -100%;
+            }
+            50%, 100% {
+                top: 100%;
+            }
+        }
+
+        .btn2 span:nth-child(3) {
+            bottom: 0%;
+            right: -100%;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(270deg, transparent, #03e9f4);;
+            animation: animate3 1s linear infinite;
+            animation-delay: .5s;
+        }
+        @keyframes animate3 {
+            0% {
+                right: -100%;
+            }
+            50%, 100% {
+                right: 100%;
+            }
+        }
+
+        .btn2 span:nth-child(4) {
+            bottom: -100%;
+            left: 0;
+            width: 2px;
+            height: 100%;
+            background: linear-gradient(360deg, transparent, #03e9f4);;
+            animation: animate4 1s linear infinite;
+            animation-delay: .75s;
+        }
+        @keyframes animate4 {
+            0% {
+                bottom: -100%;
+            }
+            50%, 100% {
+                bottom: 100%;
+            }
+        }
+	</style>
 </head>
 <body>
-test
+<header class="container">
+</header>
+<main class="container" id="notification-container">
+	<div class="btn-subscribe-wrapper"><a href="javascript:;" class="btn-subscribe"><span>알림 켜기</span></a></div>
+	<h1>GOLF PAY Notification Generator</h1>
+	<div id="requirement-container"></div>
+	<section class="visual">
+		<h2>Visual Setting</h2>
+		<div class="wrapper">
+			<div class="row">
+				<p>Title</p>
+				<select id="title">
+					<option data-id="0" value="골프페이 알림입니다.">짧은글</option>
+					<option data-id="1" value="동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라 만세. 무궁화 삼천리 화려강산 대한사람 대한으로 길이 보전하세.">긴글</option>
+					<option data-custom value="custom">Custom</option>
+				</select>
+				<input type="text" id="title_custom">
+			</div>
+			<div class="row">
+				<p>Body</p>
+				<select id="body">
+					<option data-id="0" value="Notification Content">단일문장</option>
+					<option data-id="1" value="This is the notification's message. It may be able to stretch over multiple lines, or become visible when the notification is expanded by the user, depending on the notification center that's being used.">다중문장</option>
+					<option data-id="2" value="🌇😃🍈😆🍜🍻😋⛅⛳😚">Unicode smileys</option>
+					<option data-custom="" value="custom">Custom</option>
+				</select>
+				<input type="text" id="body_custom">
+			</div>
+			<div class="row">
+				<p class="through">Direction</p>
+				<select id="direction">
+					<option data-id="0" value="ltr">Left-to-right</option>
+					<option data-id="1" value="rtl">Right-to-left</option>
+					<option data-id="2" value="auto">Auto</option>
+				</select>
+			</div>
+			<div class="row">
+				<p class="through">Image</p>
+				<select id="image">
+					<option data-id="0" value="">No Image</option>
+					<option data-id="1" value="/images/large-cat.jpg">Big Image</option>
+					<option data-custom="" value="custom">Custom</option>
+				</select>
+				<input type="text" id="image_custom">
+			</div>
+			<div class="row">
+				<p class="through">Icon</p>
+				<select id="icon">
+					<option data-id="0" value="">No Icon</option>
+					<option data-id="1" value="/images/4.png">Normal Icon</option>
+					<option data-custom="" value="custom">Custom</option>
+				</select>
+				<input type="text" id="icon_custom">
+			</div>
+			<div class="row">
+				<p class="">Badge</p>
+				<select id="badge">
+					<option data-id="0" value="">No Badge</option>
+					<option data-id="1" value="/images/11.png">Normal</option>
+					<option data-custom="" value="custom">Custom</option>
+				</select>
+				<input type="text" id="badge_custom">
+			</div>
+		</div>
+	</section>
+	<section class="behavior">
+		<h2>Behavior Setting</h2>
+		<div class="wrapper">
+			<div class="row chk">
+				<p class=""><label for="persistent">Persistent</label></p>
+				<input type="checkbox" id="persistent" checked>
+			</div>
+			<div class="row">
+				<p class="">Tag</p>
+				<select id="tag">
+					<option data-id="0" value="">No Tag</option>
+					<option data-id="1" value="tag-1">tag-1</option>
+					<option data-id="2" value="tag-2">tag-2</option>
+				</select>
+				<input type="text" id="tag_custom">
+			</div>
+			<div class="row">
+				<p class="">Vibration</p>
+				<select id="vibrate">
+					<option data-id="0" value="">No vibration</option>
+					<option data-id="1" value="10000">Single long buzz</option>
+					<option data-id="2" value="100,50,100,50,100,50,100,50,100,50,100,50,100,50,100,50,100,50,100,50">Repetitive buzzing</option>
+					<option data-custom="" value="custom">Custom</option>
+				</select>
+				<input type="text" id="vibrate_custom">
+			</div>
+			<div class="row">
+				<p class="">Timestamp</p>
+				<select id="timestamp">
+					<option data-id="0" value="0">No custom timestamp</option>
+					<option data-id="1" value="-300000">Five minutes ago</option>
+					<option data-id="2" value="-604800000">Last week</option>
+					<option data-id="3" value="+600000">Ten minutes from now</option>
+					<option data-id="4" value="+86400000">Tomorrow</option>
+					<option data-custom="" value="custom">Custom</option>
+				</select>
+				<input type="text" id="timestamp_custom">
+			</div>
+			<div class="row">
+				<p class="">Actions</p>
+				<select id="actions">
+					<option data-id="0" value="">No actions</option>
+					<option data-id="1" value="I am a button!$$/resources/icons/11.png">One action (LTR)</option>
+					<option data-id="2" value="I am a button!$$/resources/icons/11.png">One action (RTL)</option>
+					<option data-id="3" value="Yes$$/resources/icons/11.png;;No$$/resources/icons/14.png">Two actions (LTR)</option>
+					<option data-id="4" value="Like$$/resources/icons/11.png;;CLOSE$$/resources/icons/14.png">Two actions (LTR, RTL)</option>
+					<option data-id="5" value="BTN1$$/resources/icons/11.png;;Like$$/resources/icons/14.png">Two actions (RTL, LTR)</option>
+					<option data-id="6" value="/resources/icons/11.png;;$$/resources/icons/14.png">Two actions (RTL)</option>
+					<option data-id="7" value="OK$$/resources/icons/11.png;;NO$$/resources/icons/14.png">Two actions (RTL)</option>
+					<option data-id="8" value="Maybe$$/resources/icons/question.png;;Yes$$/resources/icons/check.png;;No$$/resources/icons/cross.png">Three actions</option>
+					<option data-id="9" value="👍 Like;;CANCEL">Two actions (unicode)</option>
+					<option data-id="10" value="😸😁😂😱🙈">One action (emoticons, no icon)</option>
+					<option data-id="11" value="No icon">One action (no icon)</option>
+					<option data-id="12" value="$$/resources/icons/11.png">One action (empty title)</option>
+					<option data-id="13" value="Reply$$/resources/icons/11.png$$text">One action (type text)</option>
+					<option data-id="14" value="Reply$$/resources/icons/11.png$$text$$Placeholder">One action (type text with placeholder)</option>
+				</select>
+				<input type="text" id="actions_custom">
+			</div>
+			<div class="row chk">
+				<p class=""><label for="silent">Silent</label></p>
+				<input type="checkbox" id="silent">
+			</div>
+			<div class="row chk">
+				<p class=""><label for="renotify">Renotify</p>
+				<input type="checkbox" id="renotify">
+			</div>
+			<div class="row chk">
+				<p class=""><label for="require_interaction">Req. interaction</label></p>
+				<input type="checkbox" id="require_interaction">
+			</div>
+			<div class="row chk">
+				<p class=""><label for="notification_close_event">Close event</label></p>
+				<input type="checkbox" id="notification_close_event">
+			</div>
+			<div class="row">
+				<p class="">Show trigger</p>
+				<select id="show_trigger" disabled="" title="Not supported by this browser.">
+					<option data-id="0" value="">No show trigger</option>
+					<option data-id="1" value="5000">Five seconds from now</option>
+					<option data-id="2" value="60000">One minute from now</option>
+					<option data-custom="" value="custom">Custom</option>
+				</select>
+				<input id="show_trigger_custom" type="text" style="display: none;">
+			</div>
+		</div>
+	</section>
+	<section class="behavior">
+		<h2>Reaction Setting</h2>
+		<div class="wrapper">
+			<div class="row">
+				<p class="">Action</p>
+				<select id="action">
+					<option data-id="0" value="default">Focus or open a new window.</option>
+					<option data-id="1" value="focus-only">Only try to focus.</option>
+					<option data-id="2" value="open-only">Only open a new window.</option>
+					<option data-id="5" value="open-only-tel">Only open a new window (tel:).</option>
+					<option data-id="6" value="open-only-mailto">Only open a new window (mailto:).</option>
+					<option data-id="3" value="message">Display an alert().</option>
+					<option data-id="4" value="nothing">Do nothing.</option>
+				</select>
+			</div>
+			<div class="row chk">
+				<p class=""><label for="close">Close it?</label></p>
+				<input type="checkbox" id="close" checked>
+			</div>
+		</div>
+	</section>
+	<div class="btn-area">
+		<a href="javascript:;" class="btn2" id="btn-reset">
+			<span></span>
+			<span></span>
+			<span></span>
+			<span></span>
+			reset
+		</a>
+
+		<a href="javascript:;" class="btn2" id="btn-send">
+			<span></span>
+			<span></span>
+			<span></span>
+			<span></span>
+			send
+		</a>
+	</div>
+</main>
+<footer>
+</footer>
+<script src="dist/app.js"></script>
 </body>
 </html>
