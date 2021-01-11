@@ -8,15 +8,16 @@
 	<link rel="preconnect" href="https://fonts.gstatic.com">
 	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;500;700&display=swap" rel="stylesheet">
 	<style>
-		:root {
-			--bg-color: #1C1C1B;
-			--font-color: #CE4A7E;
-		}
+        :root {
+            --bg-color: #1C1C1B;
+            --font-color: #CE4A7E;
+            --box-height: 1100px;
+        }
         * {
             margin: 0;
             padding: 0;
             outline: none;
-	        text-decoration: none;
+            text-decoration: none;
         }
         body {
             background: var(--bg-color);
@@ -28,12 +29,12 @@
             margin: 100px auto;
         }
         main {
-	        position: relative;
-            height: 1180px;
+            position: relative;
+            height: var(--box-height);
             box-shadow: 0 0 10px rgba(255,255,255,.5);
         }
         main h1 {
-	        position: relative;
+            position: relative;
             background: var(--font-color);
             color: var(--bg-color);
             font-size: 1.6rem;
@@ -41,14 +42,14 @@
             border-bottom: 1px solid rgba(0,0,0,.2);
         }
         main h1::before {
-	        content: "";
-	        position: absolute;
-	        left: 20px;
-	        top: 15px;
-	        width: 30px;
-	        height: 50px;
-	        background: url("images/golf2.png") no-repeat left center / 30px 50px;
-	        filter: invert(1);
+            content: "";
+            position: absolute;
+            left: 20px;
+            top: 15px;
+            width: 30px;
+            height: 50px;
+            background: url("images/golf2.png") no-repeat left center / 30px 50px;
+            filter: invert(1);
         }
         main section {
             padding: 15px 20px;
@@ -95,7 +96,7 @@
             color: var(--bg-color);
             border-radius: 20px;
             box-shadow: 5px 5px 10px rgba(0,0,0,.8);
-	        cursor: pointer;
+            cursor: pointer;
         }
         #requirement-container {
             padding: 10px 20px;
@@ -105,48 +106,48 @@
             color: red;
         }
         .btn-subscribe-wrapper {
-	        position: absolute;
-	        top: -70px;
-	        right: 0;
-	        z-index: 1;
+            position: absolute;
+            top: -70px;
+            right: 0;
+            z-index: 1;
         }
         .btn-subscribe {
-	        position: relative;
-	        display: inline-block;
-	        padding: 15px 30px;
-	        border: 2px solid #0f0;
-	        text-transform: uppercase;
-	        font-weight: 600;
-	        color: #fff;
-	        filter: hue-rotate(80deg);
+            position: relative;
+            display: inline-block;
+            padding: 15px 30px;
+            border: 2px solid #0f0;
+            text-transform: uppercase;
+            font-weight: 600;
+            color: #fff;
+            filter: hue-rotate(80deg);
         }
         .btn-subscribe:hover {
-	        color: #000;
+            color: #000;
         }
         .btn-subscribe span {
             position: relative;
             z-index: 100;
         }
         .btn-subscribe::before {
-	        content: "";
-	        position: absolute;
-	        left: -20px;
-	        top: 50%;
-	        transform: translateY(-50%);
-	        width: 20px;
-	        height: 2px;
-	        background: #0f0;
-	        box-shadow: 5px -8px 0 #0f0,
-                        5px 8px 0 #0f0;
-	        transition: width 0.3s, left 0.3s, height 0.3s, box-shadow 0.3s;
-	        transition-delay: .3s, 0.1s, 0s, 0s;
+            content: "";
+            position: absolute;
+            left: -20px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 2px;
+            background: #0f0;
+            box-shadow: 5px -8px 0 #0f0,
+            5px 8px 0 #0f0;
+            transition: width 0.3s, left 0.3s, height 0.3s, box-shadow 0.3s;
+            transition-delay: .3s, 0.1s, 0s, 0s;
         }
         .btn-subscribe:hover::before {
-	        width: 60%;
-	        height: 100%;
-	        left: -2px;
+            width: 60%;
+            height: 100%;
+            left: -2px;
             box-shadow: 5px 0 0 #0f0,
-                        5px 0 0 #0f0;
+            5px 0 0 #0f0;
             transition-delay: 0s, 0s, .5s, .5s;
         }
         .btn-subscribe::after {
@@ -159,7 +160,7 @@
             height: 2px;
             background: #0f0;
             box-shadow: -5px -8px 0 #0f0,
-                        -5px 8px 0 #0f0;
+            -5px 8px 0 #0f0;
             transition: width 0.3s, left 0.3s, height 0.3s, box-shadow 0.5s;
             transition-delay: .3s, .1s, 0s, 0s;
         }
@@ -168,7 +169,7 @@
             height: 100%;
             right: -2px;
             box-shadow: -5px 0 0 #0f0,
-                        -5px 0 0 #0f0;
+            -5px 0 0 #0f0;
             transition-delay: 0s, 0s, .5s, .5s;
         }
         .btn-subscribe-wrapper .btn-subscribe.granted {
@@ -188,8 +189,8 @@
             -webkit-box-reflect: below 1px linear-gradient(transparent, #0005);
         }
         .btn2:nth-child(1) {
-	        filter: hue-rotate(110deg);
-	        margin : 0 20px 0;
+            filter: hue-rotate(110deg);
+            margin : 0 20px 0;
         }
         .btn2:hover {
             background: #03e9f4;
@@ -313,7 +314,7 @@
 				</select>
 			</div>
 			<div class="row">
-				<p class="through">Image</p>
+				<p class="">Image</p>
 				<select id="image">
 					<option data-id="0" value="">No Image</option>
 					<option data-id="1" value="/images/large-cat.jpg">Big Image</option>
@@ -322,7 +323,7 @@
 				<input type="text" id="image_custom">
 			</div>
 			<div class="row">
-				<p class="through">Icon</p>
+				<p class="">Icon</p>
 				<select id="icon">
 					<option data-id="0" value="">No Icon</option>
 					<option data-id="1" value="/images/4.png">Normal Icon</option>
@@ -345,7 +346,7 @@
 		<h2>Behavior Setting</h2>
 		<div class="wrapper">
 			<div class="row chk">
-				<p class=""><label for="persistent">Persistent</label></p>
+				<p class="through"><label for="persistent">Persistent</label></p>
 				<input type="checkbox" id="persistent" checked>
 			</div>
 			<div class="row">
@@ -413,11 +414,11 @@
 				<input type="checkbox" id="require_interaction">
 			</div>
 			<div class="row chk">
-				<p class=""><label for="notification_close_event">Close event</label></p>
+				<p class="through"><label for="notification_close_event">Close event</label></p>
 				<input type="checkbox" id="notification_close_event">
 			</div>
 			<div class="row">
-				<p class="">Show trigger</p>
+				<p class="through">Show trigger</p>
 				<select id="show_trigger" disabled="" title="Not supported by this browser.">
 					<option data-id="0" value="">No show trigger</option>
 					<option data-id="1" value="5000">Five seconds from now</option>
@@ -432,7 +433,7 @@
 		<h2>Reaction Setting</h2>
 		<div class="wrapper">
 			<div class="row">
-				<p class="">Action</p>
+				<p class="through">Action</p>
 				<select id="action">
 					<option data-id="0" value="default">Focus or open a new window.</option>
 					<option data-id="1" value="focus-only">Only try to focus.</option>
@@ -444,7 +445,7 @@
 				</select>
 			</div>
 			<div class="row chk">
-				<p class=""><label for="close">Close it?</label></p>
+				<p class="through"><label for="close">Close it?</label></p>
 				<input type="checkbox" id="close" checked>
 			</div>
 		</div>
